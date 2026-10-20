@@ -10,6 +10,7 @@ test = ["pytest>=8.0"]
 
 [project.scripts]
 goodreads-mcp = "goodreads_mcp.server:main"
+goodreads-mcp-http = "goodreads_mcp.serve_http:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
