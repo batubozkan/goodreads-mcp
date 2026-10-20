@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>goodreads-mcp</Name>
+  <Repository>ghcr.io/batubozkan/goodreads-mcp:latest</Repository>
+  <Registry>https://github.com/batubozkan/goodreads-mcp/pkgs/container/goodreads-mcp</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/shreeyachand/goodreads-mcp/issues</Support>
+  <Project>https://github.com/batubozkan/goodreads-mcp</Project>
+  <Overview>
+    Read-only MCP server for Goodreads (fork of shreeyachand/goodreads-mcp with a Streamable HTTP
+    entry point). Search books, details, reviews, similar books, series, editions, public shelves.
+    No login, no cookies: it reads public Goodreads pages, RSS and the site's own GraphQL backend.
+
+    MCP endpoint: http://[IP]:[PORT:8000]/mcp   Health: http://[IP]:[PORT:8000]/health
+
+    The server has no auth of its own. It is published only through the Cloudflare Tunnel behind
+    an Access service token and the mcp.batubozkan.com portal. Do not port forward it.
+  </Overview>
+  <Category>Tools: Productivity:</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/batubozkan/goodreads-mcp/main/unraid/my-goodreads-mcp.xml</TemplateURL>
+  <Icon>https://www.goodreads.com/favicon.ico</Icon>
+  <ExtraParams>--restart unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="HTTP port" Target="8000" Default="8892" Mode="tcp"
+          Description="Host port of the MCP endpoint (/mcp) and /health."
+          Type="Port" Display="always" Required="true" Mask="false">8892</Config>
+  <Config Name="GOODREADS_USER_ID" Target="GOODREADS_USER_ID" Default="" Mode=""
+          Description="Optional. Numeric Goodreads profile id (goodreads.com/user/show/ID-name), the default for get_shelf and list_shelves. The profile must be public."
+          Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="GOODREADS_MCP_ALLOWED_HOSTS" Target="GOODREADS_MCP_ALLOWED_HOSTS" Default="" Mode=""
+          Description="Optional Host header allowlist (comma separated, host:* allowed). Empty turns the DNS rebinding check off."
+          Type="Variable" Display="advanced" Required="false" Mask="false">goodreads-mcp.batubozkan.com,192.168.1.21:*,127.0.0.1:*</Config>
+</Container>
